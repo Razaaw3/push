@@ -33,7 +33,13 @@ export default function Home() {
     // Foreground message listener
     listenFirebaseMessages((payload: any) => {
       console.log('Foreground Notification:', payload);
-      // alert(payload.notification?.title + '\n' + payload.notification?.body);
+
+      if (Notification.permission === 'granted') {
+        new Notification(payload.notification?.title || 'Notification', {
+          body: payload.notification?.body || '',
+          icon: '/next.svg',
+        });
+      }
     });
   };
 

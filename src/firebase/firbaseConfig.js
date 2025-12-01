@@ -19,7 +19,7 @@ export const messaging =
 export const requestPermissionAndGetToken = async () => {
   try {
     const permission = await Notification.requestPermission();
-    console.log(permission);
+    alert('Permission: ', permission);
     if (permission !== 'granted') {
       throw new Error('Notification permission not granted');
     }
@@ -27,7 +27,7 @@ export const requestPermissionAndGetToken = async () => {
     const token = await getToken(messaging, {
       vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
     });
-
+    alert('Permission: ', token);
     return token;
   } catch (err) {
     console.error('FCM Token Error:', err);
