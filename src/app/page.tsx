@@ -61,7 +61,7 @@ export default function Home() {
       console.log(userId, fcmToken);
 
       const res = await fetch(
-        `https://1c6ff54a121e.ngrok-free.app/save-token`,
+        `https://914684e8ba56.ngrok-free.app/save-token`,
         {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
@@ -84,7 +84,7 @@ export default function Home() {
   };
 
   const sendTestPush = async () => {
-    const res = await fetch(`https://1c6ff54a121e.ngrok-free.app/send-push`, {
+    const res = await fetch(`https://914684e8ba56.ngrok-free.app/send-push`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
