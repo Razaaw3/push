@@ -1,6 +1,11 @@
 // firebase/firebase-config.js
 import {initializeApp} from 'firebase/app';
-import {getMessaging, getToken, onMessage} from 'firebase/messaging';
+import {
+  getMessaging,
+  getToken,
+  onMessage,
+  isSupported,
+} from 'firebase/messaging';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBtNCUWt9GwM3V73WZ6ha830BLOlbb6oak',
@@ -18,6 +23,8 @@ export const messaging =
 
 export const requestPermissionAndGetToken = async () => {
   try {
+    alert(isSupported());
+
     const permission = await Notification.requestPermission();
     alert(permission);
     if (permission !== 'granted') {
