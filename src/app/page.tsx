@@ -54,14 +54,17 @@ export default function Home() {
 
       console.log(userId, fcmToken);
 
-      const res = await fetch(`http://192.168.1.9:8080/save-token`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          userId: userId.trim(),
-          fcmToken,
-        }),
-      });
+      const res = await fetch(
+        `https://4619e1e82fba.ngrok-free.app/save-token`,
+        {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            userId: userId.trim(),
+            fcmToken,
+          }),
+        }
+      );
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Token registration failed');
@@ -75,7 +78,7 @@ export default function Home() {
   };
 
   const sendTestPush = async () => {
-    const res = await fetch(`http://192.168.1.9:8080/send-push`, {
+    const res = await fetch(`https://4619e1e82fba.ngrok-free.app/send-push`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
