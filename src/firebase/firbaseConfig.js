@@ -23,7 +23,8 @@ export const messaging =
 
 export const requestPermissionAndGetToken = async () => {
   try {
-    alert(isSupported());
+    const res = await isSupported();
+    alert(res);
 
     const permission = await Notification.requestPermission();
     alert(permission);
