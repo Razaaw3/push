@@ -22,6 +22,7 @@ export default function NotificationSubscribe({
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    alert('serviceWorker' in navigator && 'PushManager' in window);
     if ('serviceWorker' in navigator && 'PushManager' in window) {
       setIsSupported(true);
       checkSubscription();
@@ -31,7 +32,9 @@ export default function NotificationSubscribe({
   const checkSubscription = async () => {
     try {
       const registration = await navigator.serviceWorker.ready;
+      alert(registration);
       const subscription = await registration.pushManager.getSubscription();
+      alert(subscription);
       setIsSubscribed(!!subscription);
     } catch (error) {
       console.error('Error checking subscription:', error);

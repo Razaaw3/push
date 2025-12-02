@@ -24,10 +24,10 @@ export const messaging =
 export const requestPermissionAndGetToken = async () => {
   try {
     const res = await isSupported();
-    alert(res);
+    // alert(res);
 
     const permission = await Notification.requestPermission();
-    alert(permission);
+    // alert(permission);
     if (permission !== 'granted') {
       throw new Error('Notification permission not granted');
     }
@@ -36,7 +36,7 @@ export const requestPermissionAndGetToken = async () => {
       vapidKey:
         'BHILOH7cWZ8TlTCa3mLQpcu6bbJ3bTljX73N6PAh4V9F7ssdFE62ZpoUPE0DTRHTi7qrbwfZral0PWsU9hTyDAg',
     });
-    alert(token);
+    // alert(token);
     return token;
   } catch (err) {
     console.error('FCM Token Error:', err);
