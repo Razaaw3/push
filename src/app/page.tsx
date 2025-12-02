@@ -46,7 +46,7 @@ export default function Home() {
 
   // Your backend base URL
   const API_BASE =
-    process.env.NEXT_PUBLIC_API_BASE || 'https://e98512b284ab.ngrok-free.app';
+    process.env.NEXT_PUBLIC_API_BASE || 'https://914684e8ba56.ngrok-free.app';
 
   /* ------------------------------------------------------------------
      Register Push Token (User Clicks this Button)
