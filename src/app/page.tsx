@@ -4,6 +4,7 @@ import {useEffect, useState} from 'react';
 import Image from 'next/image';
 import {requestPermissionAndGetToken} from '@/firebase/firbaseConfig';
 import {listenFirebaseMessages} from '@/firebase/firbaseConfig';
+import NotificationSubscribe from '@/components/NotificationSubscribe';
 
 export default function Home() {
   const [userId, setUserId] = useState('');
@@ -115,6 +116,43 @@ export default function Home() {
       )}.pkpass${params.toString() ? `?${params.toString()}` : ''}`;
 
       window.location.href = url; // redirects for .pkpass
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(null);
+    }
+  };
+
+  const sendWebPushNotification = async () => {
+    if (!userId.trim()) {
+      setError('Please enter a user ID.');
+      return;
+    }
+
+    try {
+      setLoading('web-push');
+      setError(null);
+
+      const res = await fetch(`${API_BASE}/api/push/send`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          userId: userId.trim(),
+          title: '🔥 Test Web Push',
+          body: 'This is a Web Push notification!',
+          url: '/',
+          tag: 'test',
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to send notification');
+
+      alert(
+        `✅ Web Push sent! Results: ${data.results?.sent || 0} sent, ${
+          data.results?.failed || 0
+        } failed`
+      );
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -278,6 +316,19 @@ export default function Home() {
             placeholder="e.g. coffee, salon, auto"
             className="w-full rounded-md border px-3 py-2 text-sm mt-1"
           />
+        </div>
+        {/* WEB PUSH NOTIFICATIONS */}
+        <div className="flex flex-col gap-2">
+          <NotificationSubscribe userId={userId} />
+          <button
+            onClick={sendWebPushNotification}
+            disabled={!userId.trim() || loading !== null}
+            className="h-10 rounded-md bg-indigo-500 text-white hover:bg-indigo-600 disabled:opacity-60"
+          >
+            {loading === 'web-push'
+              ? 'Sending...'
+              : 'Send Test Web Push Notification'}
+          </button>
         </div>
 
         {/* REGISTER PUSH TOKEN */}
